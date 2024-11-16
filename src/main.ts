@@ -1,9 +1,11 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import * as helmet from 'helmet';
+import helmet from 'helmet';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { cors: true });
+
   app.enableCors({
     origin: [
       'https://financeai-nestapi.vercel.app/',
@@ -13,7 +15,10 @@ async function bootstrap() {
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   });
-  app.use(helmet.default());
+
+  app.use(cookieParser());
+  app.use(helmet());
+
   await app.listen(process.env.PORT ?? 3005);
 }
 bootstrap();

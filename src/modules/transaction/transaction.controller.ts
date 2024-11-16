@@ -5,8 +5,6 @@ import {
   HttpCode,
   HttpStatus,
   Delete,
-  Get,
-  Param,
 } from '@nestjs/common';
 import { TransactionsService } from './transaction.service';
 import { CreateTransactionDto } from './dto/create-transaction.dto';
@@ -33,10 +31,5 @@ export class TransactionsController {
   @Post('/update')
   async updateTransaction(@Body() body: any) {
     return this.transactionsService.updateTransaction(body.id, body);
-  }
-
-  @Get('/:userId')
-  async getUserTransactions(@Param('userId') userId: string) {
-    return this.transactionsService.getUserTransaction(userId);
   }
 }
